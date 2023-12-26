@@ -1,15 +1,5 @@
 --[[
-    GD50 2018
-    Pong Remake
-
-    -- Ball Class --
-
-    Author: Colton Ogden
-    cogden@cs50.harvard.edu
-
-    Represents a ball which will bounce back and forth between paddles
-    and walls until it passes a left or right boundary of the screen,
-    scoring a point for the opponent.
+    class ball v 1.0
 ]]
 
 Ball = Class{}
@@ -36,25 +26,29 @@ function Ball:collides(paddle)
     if self.x > paddle.x + paddle.width or paddle.x > self.x + self.width then
         return false
     end
-
     -- then check to see if the bottom edge of either is higher than the top
     -- edge of the other
     if self.y > paddle.y + paddle.height or paddle.y > self.y + self.height then
         return false
     end 
-
     -- if the above aren't true, they're overlapping
     return true
 end
 
---[[
-    Places the ball in the middle of the screen, with no movement.
-]]
-function Ball:reset()
-    self.x = VIRTUAL_WIDTH / 2 - 2
-    self.y = VIRTUAL_HEIGHT / 2 - 2
+-- Places the ball in the x, y of the screen, with no movement.
+function Ball:reset(x, y)
+    self.x = x - self.width / 2
+    self.y = y - self.height / 2
     self.dx = 0
     self.dy = 0
+end
+
+function Ball:isStop()
+	if (self.dx == 0 and self.dy == 0) then
+		return true
+	else 
+		return false
+	end
 end
 
 function Ball:update(dt)
