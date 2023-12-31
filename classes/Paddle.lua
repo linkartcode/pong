@@ -6,13 +6,16 @@
 
 Paddle = Class{}
 
-function Paddle:init(x, y, width, height, speed, aiLevel)
-   self.x = x
-   self.y = y
-   self.width = width
-   self.height = height
-	self.speed = speed;
-   self.aiLevel = aiLevel
+function Paddle:init(xOffset, yOffset, settings)
+	self.x = xOffset
+	self.y = yOffset
+	self.downKey = settings.downKey
+	self.upKey = settings.upKey
+	self.width = settings.width or 5
+   self.height = settings.height or 20
+	self.speed = settings.speed or 200
+   self.aiLevel = settings.aiLevel or 0
+	self.mouseControl = settings.mouseControl or false
 	self.dy = 0
 end
 
@@ -31,12 +34,33 @@ function Paddle:AI(ball)
     end
 end
 
-function Paddle:update(dt, maxY)
-    if self.dy < 0 then
-        self.y = math.max(0, self.y + self.dy * dt)
-    else
-        self.y = math.min(maxY - self.height, self.y + self.dy * dt)
-    end
+function Paddle:isKeyPress()
+	if love.keyboard.isDown(self.upKey) then
+		self.dy = -self.speed
+	elseif love.keyboard.isDown(self.downKey) then
+		self.dy = self.speed
+	else
+		self.dy = 0
+	end
+end
+
+function Paddle:isWheelMove(dt)
+	self.dy = -gWheelVertMove * dt * self.speed 
+end
+
+function Paddle:update(dt)
+	if self.aiLevel > 0 then
+		self:AI(game.ball)
+	elseif self.mouseControl then
+		self:isWheelMove(dt)
+	else
+		self:isKeyPress()
+	end
+   if self.dy < 0 then
+      self.y = math.max(0, self.y + self.dy * dt)
+   else
+      self.y = math.min(game.virtualHeight - self.height, self.y + self.dy * dt)
+   end
 end
 
 function Paddle:render()
