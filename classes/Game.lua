@@ -15,21 +15,21 @@ function	Game:init(realWinWidth, realWinHeight, settings)
 	})
 	-- Table consists control keys set
 	self.controlKeys = {
-		serveKey = 			'space',		-- key for serve and switch between game states
-		helpKey = 			'h',			-- key for enter to help screen
-		displayFPSKey =	'f',			-- key toggle display on/off
-		wheelToggleKey=	'm',			-- toggles on/off control with mouse wheel for player2
+		serveKey = 			gServeKey,			-- key for serve and switch between game states
+		helpKey = 			gHelpKey,			-- key for enter to help screen
+		displayFPSKey =	gDisplayFPSKey,	-- key toggle display on/off
+		wheelToggleKey=	gWheelToggleKey,	-- toggles on/off control with mouse wheel for player2
 
-		aiPlayer1Key = 	'1',			-- key to change ai player 1
-		aiPlayer2Key = 	'2',			-- key to change ai player 2
+		aiPlayer1Key = 	gAiPlayer1Key,		-- key to change ai player 1
+		aiPlayer2Key = 	gAiPlayer2Key,		-- key to change ai player 2
 
-		upPlayer1Key = 	'w',			-- key move up player1
-		downPlayer1Key = 	's',			-- key move down player1
+		upPlayer1Key = 	gUpPlayer1Key,		-- key move up player1
+		downPlayer1Key = 	gDownPlayer1Key,	-- key move down player1
 
-		upPlayer2Key = 	'up',			-- key move up player2
-		downPlayer2Key = 	'down',		-- key move down player2
+		upPlayer2Key = 	gUpPlayer2Key,		-- key move up player2
+		downPlayer2Key = 	gDownPlayer2Key,	-- key move down player2
 
-		exitKey =			'escape'		-- key for exit
+		exitKey =			gExitKey				-- key for exit
 	}
 
 	--[[	inits players, parameters : x, y start positions, requred parameters
